@@ -93,13 +93,13 @@
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                     @forelse($loans as $loan)
                     <tr class="{{ $loan->status === 'overdue' ? 'bg-red-50 dark:bg-red-950/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50' }} transition-colors">
-                        <td class="px-4 py-3 font-medium">{{ $loan->tool->name }}</td>
-                        <td class="px-4 py-3">{{ $loan->personnel->name }}</td>
+                        <td class="px-4 py-3 font-medium">{{ $loan->tool?->name ?? 'Silinmiş Parça' }}</td>
+                        <td class="px-4 py-3">{{ $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Bilinmeyen Kullanıcı') }}</td>
                         <td class="px-4 py-3">
-                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono">{{ $loan->personnel->badge_number }}</span>
+                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono">{{ $loan->personnel?->badge_number ?? '—' }}</span>
                         </td>
-                        <td class="px-4 py-3 text-gray-500">{{ $loan->personnel->department ?? '—' }}</td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at->format('d.m.Y H:i') }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $loan->personnel?->department ?? '—' }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at?->format('d.m.Y H:i') ?? '—' }}</td>
                         <td class="px-4 py-3 text-gray-600">{{ $loan->planned_return_at->format('d.m.Y') }}</td>
                         <td class="px-4 py-3 text-gray-600">{{ $loan->returned_at?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-4 py-3">
@@ -156,11 +156,11 @@
                 <tbody class="divide-y divide-red-100 dark:divide-red-900/30">
                     @forelse($overdueLoans as $loan)
                     <tr class="bg-red-50 dark:bg-red-950/20 hover:bg-red-100 dark:hover:bg-red-950/30 transition-colors">
-                        <td class="px-4 py-3 font-semibold text-red-900 dark:text-red-300">{{ $loan->tool->name }}</td>
-                        <td class="px-4 py-3 font-medium">{{ $loan->personnel->name }}</td>
-                        <td class="px-4 py-3"><span class="font-mono text-xs bg-red-100 dark:bg-red-900/40 px-2 py-0.5 rounded">{{ $loan->personnel->badge_number }}</span></td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->personnel->department ?? '—' }}</td>
-                        <td class="px-4 py-3 text-red-700 dark:text-red-400 font-medium">{{ $loan->planned_return_at->format('d.m.Y H:i') }}</td>
+                        <td class="px-4 py-3 font-semibold text-red-900 dark:text-red-300">{{ $loan->tool?->name ?? 'Silinmiş Parça' }}</td>
+                        <td class="px-4 py-3 font-medium">{{ $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Bilinmeyen Kullanıcı') }}</td>
+                        <td class="px-4 py-3"><span class="font-mono text-xs bg-red-100 dark:bg-red-900/40 px-2 py-0.5 rounded">{{ $loan->personnel?->badge_number ?? '—' }}</span></td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->personnel?->department ?? '—' }}</td>
+                        <td class="px-4 py-3 text-red-700 dark:text-red-400 font-medium">{{ $loan->planned_return_at?->format('d.m.Y H:i') ?? '—' }}</td>
                         <td class="px-4 py-3 text-center">
                             <span class="px-3 py-1 bg-red-600 text-white rounded-full text-xs font-bold">
                                 {{ $loan->overdue_days }} gün
@@ -235,9 +235,9 @@
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                     @forelse($personnelLoans as $loan)
                     <tr class="{{ $loan->status === 'overdue' ? 'bg-red-50 dark:bg-red-950/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
-                        <td class="px-4 py-3 font-medium">{{ $loan->tool->name }}</td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at->format('d.m.Y H:i') }}</td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->planned_return_at->format('d.m.Y') }}</td>
+                        <td class="px-4 py-3 font-medium">{{ $loan->tool?->name ?? 'Silinmiş Parça' }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at?->format('d.m.Y H:i') ?? '—' }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->planned_return_at?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-4 py-3 text-gray-600">{{ $loan->returned_at?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-4 py-3 text-center">
                             <span class="px-2 py-1 rounded-full text-xs font-semibold
@@ -318,10 +318,10 @@
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                     @forelse($toolHistory as $loan)
                     <tr class="{{ $loan->status === 'overdue' ? 'bg-red-50 dark:bg-red-950/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
-                        <td class="px-4 py-3 font-medium">{{ $loan->personnel->name }}</td>
-                        <td class="px-4 py-3"><span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">{{ $loan->personnel->badge_number }}</span></td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at->format('d.m.Y H:i') }}</td>
-                        <td class="px-4 py-3 text-gray-600">{{ $loan->planned_return_at->format('d.m.Y') }}</td>
+                        <td class="px-4 py-3 font-medium">{{ $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Bilinmeyen Kullanıcı') }}</td>
+                        <td class="px-4 py-3"><span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">{{ $loan->personnel?->badge_number ?? '—' }}</span></td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->loaned_at?->format('d.m.Y H:i') ?? '—' }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ $loan->planned_return_at?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-4 py-3 text-gray-600">{{ $loan->returned_at?->format('d.m.Y') ?? '—' }}</td>
                         <td class="px-4 py-3 text-center">
                             <span class="px-2 py-1 rounded-full text-xs font-semibold

@@ -43,7 +43,8 @@ Route::middleware(['auth', 'admin-portal'])->prefix('labels')->name('labels.')->
 });
 
 // ─── İstasyon Canlı Kiosk Ekranı (Duvar / Monitör Kiosk Modu) ─────────────────
-Route::get('/station/{station}/display', [LabelController::class, 'stationDisplay'])->name('station.public.display');
+Route::get('/station/{station}/display', [LabelController::class, 'stationDisplay'])->name('stations.display');
+Route::get('/station/{station}/kiosk',   [LabelController::class, 'stationDisplay'])->name('station.public.display');
 
 
 Route::middleware(['auth', 'admin-portal'])->prefix('export')->name('export.')->group(function () {

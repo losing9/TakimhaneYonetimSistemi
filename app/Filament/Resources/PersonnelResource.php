@@ -62,11 +62,48 @@ class PersonnelResource extends Resource
                 ->maxLength(30),
 
             \Filament\Forms\Components\Select::make('user_id')
-                ->label('Kullanıcı Hesabı')
-                ->relationship('user', 'name', fn ($query) => $query->where('role', 'personel'))
+                ->label('Giriş Hesabı (Kullanıcı)')
+                ->relationship('user', 'name', function ($query, $record) {
+                    // Henüz başka personele bağlanmamış veya bu personele bağlı kullanıcıları getir
+                    return $query->where(function ($q) use ($record) {
+                        $q->whereDoesntHave('personnel');
+                        if ($record && $record->user_id) {
+                            $q->orWhere('id', $record->user_id);
+                        }
+                    });
+                })
+                ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} ({$record->email})")
                 ->searchable()
+                ->preload()
                 ->nullable()
-                ->helperText('Bu personelin portal üzerinden giriş yapabilmesi için kullanıcı hesabı bağlayın.'),
+                ->createOptionForm([
+                    TextInput::make('name')
+                        ->label('Kullanıcı Adı')
+                        ->required()
+                        ->maxLength(100),
+                    TextInput::make('email')
+                        ->label('E-posta')
+                        ->email()
+                        ->required()
+                        ->unique('users', 'email')
+                        ->maxLength(255),
+                    TextInput::make('password')
+                        ->label('Giriş Şifresi')
+                        ->password()
+                        ->required()
+                        ->default('12345678')
+                        ->helperText('Varsayılan: 12345678')
+                        ->revealable(),
+                ])
+                ->createOptionUsing(function (array $data) {
+                    return \App\Models\User::create([
+                        'name'     => $data['name'],
+                        'email'    => $data['email'],
+                        'password' => \Illuminate\Support\Facades\Hash::make($data['password']),
+                        'role'     => 'personel',
+                    ])->id;
+                })
+                ->helperText('Personelin portal üzerinden giriş yapabilmesi için listeden hesap seçin veya + ile anında yeni hesap açın.'),
 
             Toggle::make('is_active')
                 ->label('Aktif Personel')
@@ -87,9 +124,7 @@ class PersonnelResource extends Resource
                     TextEntry::make('phone')->label('Telefon')->placeholder('—'),
                     IconEntry::make('is_active')
                         ->label('Durum')
-                        ->boolean()
-                        ->trueLabel('Aktif')
-                        ->falseLabel('Pasif'),
+                        ->boolean(),
                 ]),
 
             Section::make('Aktif Zimmetler')
