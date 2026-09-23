@@ -1,59 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛠️ Takımhane Yönetim Sistemi (Toolroom Management System)
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="docs/images/admin_dashboard.jpg" alt="Takımhane Yönetim Paneli" width="850" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11">
+  <img src="https://img.shields.io/badge/Filament-3.x-FFA500?style=for-the-badge&logo=php&logoColor=white" alt="Filament 3">
+  <img src="https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Proje Hakkında
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Takımhane Yönetim Sistemi**, endüstriyel atölyeler, araç servisleri ve üretim tesislerindeki el aletleri, özel takım ve aparatların, dolap-raf-göz lokasyonlarının, zimmet süreçlerinin ve personel hareketlerinin uçtan uca dijital olarak takip edilmesini sağlayan yeni nesil bir kurumsal yönetim platformudur.
 
-## Learning Laravel
+Birden fazla atölyeye sahip işletmeler için tasarlanan **Çoklu Takımhane Mimarisi** sayesinde, her birim kendi verilerini tamamen izole bir şekilde yönetirken, yönetim kadrosu tek bir merkezden tüm tesisi denetleyebilir.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🖼️ Ekran Görüntüleri
 
-## Laravel Sponsors
+| Modern Yönetim Paneli | Self-Servis Kiosk & QR Ekranı |
+| :---: | :---: |
+| <img src="docs/images/admin_dashboard.jpg" width="420" style="border-radius: 6px;"> | <img src="docs/images/kiosk_mockup.jpg" width="420" style="border-radius: 6px;"> |
+| *Gerçek zamanlı stok, zimmet ve hareket analizleri* | *İstasyon bazlı, dinamik QR kodlu self-servis teslim/iade* |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🌟 Temel Özellikler
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🏢 1. Çoklu Takımhane & Rol Tabanlı İzolasyon (Multi-Toolroom)
+- **Birim Ayrımı:** Örneğin *Ağır Vasıta Takımhanesi* ve *Otomobil / Hafif Ticari Araçlar (HTA) Takımhanesi* gibi birden fazla takımhane bağımsız çalışır.
+- **Sorumlu İzolasyonu:** A Takımhanesi sorumlusu yalnızca kendi takımhanesindeki takımları, rafları ve zimmetleri görür; B Takımhanesi sorumlusu diğer birimin verilerine erişemez.
+- **Süper Admin Denetimi:** Genel yöneticiler tüm takımhaneleri eş zamanlı izleyebilir, aralarında filtreleme yapabilir ve birimler arası takım transferi sağlayabilir.
 
-## Contributing
+### 🔧 2. Akıllı Takım ve Envanter Yönetimi
+- **Hiyerarşik Depolama:** Takımlar fiziksel konumlarına göre **Blok (Dolap) → Raf → Göz (Kutu/Slot)** şeklinde haritalandırılır.
+- **Araç Grubu & Kategori Sınıflandırması:** Parçalar kullanım alanlarına göre (Ağır Vasıta, Binek, HTA vb.) ve kategorilerine göre filtrelenebilir.
+- **Barkod & QR Desteği:** Her takım için otomatik QR/Barkod etiketleri üretilebilir ve yazdırılabilir.
+- **Kritik Stok & Bakım Takibi:** Stokta azalan parçalar ve periyodik bakıma girmesi gereken takımlar için otomatik uyarı sistemi.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 🔄 3. Hızlı Zimmet ve İade Takibi (Checkout / Check-in)
+- **Personel Eşleştirme:** Takımlar personellere zimmetlenir, tahmini iade tarihi belirlenir.
+- **Gecikme Uyarıları:** Belirtilen sürede teslim edilmeyen takımlar panelde ve raporlarda anında vurgulanır.
+- **Kullanım Geçmişi:** Hangi takımın ne zaman, kim tarafından ve ne kadar süreyle kullanıldığı saniye saniye kaydedilir.
 
-## Code of Conduct
+### 📱 4. Self-Servis Kiosk & Dinamik Güvenlikli QR Kod
+- **Atölye İçi Kiosklar:** Atölye girişlerindeki tablet veya dokunmatik ekranlar için özel kiosk modu.
+- **Dinamik QR Kod:** QR kod kopyalamalarını ve suiistimalleri önlemek için takımhane QR kodları belirli periyotlarla (haftalık/otomatik) dinamik olarak güncellenir.
+- **Hızlı Teslim:** Usta veya teknisyen kendi QR kodunu ve parçayı okutarak saniyeler içinde zimmet işlemini tamamlar.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 📊 5. Gelişmiş Raporlama & Yedekleme
+- **Excel ve PDF Dışa Aktarımı:** Tek tıkla tüm parça listesi, aktif zimmetler veya tarih aralıklı kullanım raporları indirilebilir.
+- **Görsel / Kompakt Çıktı:** Saha kullanımı ve resmi denetimler için fotoğraflı veya sadeleştirilmiş döküm seçenekleri.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🏗️ Teknoloji Mimarisi
 
-## License
+- **Backend Framework:** [Laravel 11](https://laravel.com/)
+- **Admin & UI Engine:** [Filament v3](https://filamentphp.com/) (TALL Stack: Tailwind, Alpine.js, Laravel, Livewire)
+- **Veritabanı:** MySQL 8.0+
+- **Frontend & Tasarım:** Blade, Tailwind CSS, Heroicons
+- **Raporlama:** Maatwebsite Excel & DomPDF / Snappy
+- **Gelecek Entegrasyonu:** C# (.NET) tabanlı masaüstü dokunmatik atölye terminali ve donanım entegrasyonu.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🚀 Kurulum Rehberi (Yerel Geliştirme)
+
+### Gereksinimler
+- PHP >= 8.2 (Gerekli uzantılar: `pdo`, `mbstring`, `openssl`, `gd`, `curl`, `xml`, `zip`)
+- Composer >= 2.x
+- MySQL >= 8.0 veya MariaDB >= 10.4
+- Node.js >= 18.x & NPM
+
+### Adım Adım Kurulum
+
+1. **Depoyu Klonlayın:**
+   ```bash
+   git clone https://github.com/losing9/TakimhaneYonetimSistemi.git
+   cd TakimhaneYonetimSistemi
+   ```
+
+2. **Bağımlılıkları Yükleyin:**
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+
+3. **Ortam Değişkenlerini Ayarlayın:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   `.env` dosyasını açarak veritabanı bağlantı bilgilerinizi girin:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=takimhane_db
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+4. **Veritabanı Tablolarını ve Başlangıç Verilerini Yükleyin:**
+   ```bash
+   php artisan migrate --seed
+   php artisan storage:link
+   ```
+
+5. **Geliştirme Sunucusunu Başlatın:**
+   ```bash
+   php artisan serve
+   ```
+   Tarayıcınızdan `http://127.0.0.1:8000/admin` adresine giderek yönetim paneline erişebilirsiniz.
+
+---
+
+## 👥 Kullanıcı Rolleri & Erişim Matrisi
+
+| Rol | Kapsam | Yetkiler |
+| :--- | :--- | :--- |
+| **Süper Admin** (`super_admin`) | Tüm Sistem | Tüm takımhaneler, kullanıcı yetkilendirme, yeni birim açma, genel raporlar ve ayarlar. |
+| **Takımhane Sorumlusu** (`takimhane_sor`) | Atanan Takımhane (A veya B) | Sadece kendi takımhanesinin parçaları, dolap/raf gözleri, zimmetleri ve istasyon kioskları. |
+| **Personel / Teknisyen** (`personel`) | Bireysel | Kendine ait zimmetleri görme, self-servis kiosk üzerinden takım alma/iade etme. |
+
+---
+
+## 🗺️ Yol Haritası (Roadmap)
+
+- [x] Çoklu Takımhane Mimarisi (Ağır Vasıta & Otomobil/HTA)
+- [x] Takımhane Sorumlusu Rol İzolasyonu
+- [x] Dinamik QR Kod ve Self-Servis Kiosk Modu
+- [x] Excel ve PDF Rapor Dışa Aktarımı
+- [x] Gelişmiş Personel Tanımlama ve Hızlı Hesap Entegrasyonu
+- [ ] **C# (.NET) Masaüstü Uygulaması:** Dokunmatik atölye terminalleri için offline-tolerant native masaüstü istemcisi
+- [ ] **El Terminali / RFID Desteği:** Toplu takım sayımı ve RFID etiketli hızlı iade modülü
+- [ ] **Lisanslama & Güvenlik Modülü:** Ticari dağıtım için lisans aktivasyon ve kod şifreleme altyapısı
+
+---
+
+## 📄 Lisans & Telif Hakkı
+
+Bu yazılım özel ticari mülkiyete tabidir. İzinsiz kopyalanamaz, çoğaltılamaz ve dağıtılamaz.  
+Tüm hakları saklıdır © 2026.
