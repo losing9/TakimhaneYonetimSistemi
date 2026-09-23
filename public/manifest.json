@@ -1,0 +1,39 @@
+{
+    "name": "Takımhane",
+    "short_name": "Takımhane",
+    "description": "Takım ve Alet Yönetim Sistemi",
+    "start_url": "/login",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#0f172a",
+    "orientation": "portrait-primary",
+    "lang": "tr",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "QR Tara",
+            "url": "/portal/scan",
+            "icons": [{"src": "/icons/icon-192.png", "sizes": "192x192"}]
+        },
+        {
+            "name": "Hızlı Alet Ekle",
+            "url": "/admin-portal/add-tool",
+            "icons": [{"src": "/icons/icon-192.png", "sizes": "192x192"}]
+        }
+    ],
+    "categories": ["utilities", "productivity"],
+    "scope": "/"
+}
