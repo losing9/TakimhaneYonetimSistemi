@@ -29,7 +29,9 @@ class StationResource extends Resource
                     ->label('Takımhane')
                     ->relationship('toolroom', 'name')
                     ->required()
-                    ->default(1)
+                    ->default(fn () => auth()->user()?->toolroom_id ?? 1)
+                    ->disabled(fn () => auth()->user()?->toolroom_id !== null)
+                    ->dehydrated()
                     ->preload(),
 
                 Forms\Components\TextInput::make('name')
@@ -90,6 +92,13 @@ class StationResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('toolroom_id')
+                    ->label('Takımhane')
+                    ->relationship('toolroom', 'name')
+                    ->visible(fn () => auth()->user()?->toolroom_id === null)
+                    ->preload(),
+            ])
             ->actions([
                 Tables\Actions\Action::make('live_screen')
                     ->label('📺 Canlı Dinamik QR')
@@ -112,6 +121,17 @@ class StationResource extends Resource
             ->headerActions([
                 Tables\Actions\CreateAction::make()->label('Yeni İstasyon'),
             ]);
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
+
+        return $query;
     }
 
     public static function getRelations(): array

@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,7 +21,7 @@ class User extends Authenticatable implements FilamentUser
     /**
      * Kullanıcı rolleri:
      * - super_admin       → Tüm yetkiler
-     * - takimhane_sor     → Ödünç verme/alma, parça yönetimi
+     * - takimhane_sor     → Ödünç verme/alma, parça yönetimi (kendi takımhanesi)
      * - personel          → Salt okunur
      */
     protected $fillable = [
@@ -28,6 +29,7 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'role',
+        'toolroom_id',
     ];
 
     protected $hidden = [
@@ -77,5 +79,23 @@ class User extends Authenticatable implements FilamentUser
     public function personnel(): HasOne
     {
         return $this->hasOne(Personnel::class);
+    }
+
+    /** Kullanıcının sorumlu olduğu takımhane (Süper admin için null olabilir) */
+    public function toolroom(): BelongsTo
+    {
+        return $this->belongsTo(Toolroom::class);
+    }
+
+    /**
+     * Kullanıcının belirtilen takımhaneyi yönetme yetkisi var mı?
+     */
+    public function canManageToolroom(?int $toolroomId): bool
+    {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        return $this->toolroom_id !== null && $this->toolroom_id === (int) $toolroomId;
     }
 }

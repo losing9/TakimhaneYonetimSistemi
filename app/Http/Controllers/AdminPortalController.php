@@ -25,6 +25,7 @@ class AdminPortalController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $roomId = $user?->toolroom_id;
 
         // Tarih parametresini doğrula: sadece geçerli tarih formatı kabul edilir
         $selectedDate = $request->input('date', today()->toDateString());
@@ -35,16 +36,26 @@ class AdminPortalController extends Controller
         $carbonDate = Carbon::parse($selectedDate);
 
         // Envanter ve Zimmet istatistikleri
+        $toolQ = Tool::query();
+        $loanQ = Loan::query();
+        if ($roomId) {
+            $toolQ->where('toolroom_id', $roomId);
+            $loanQ->where('toolroom_id', $roomId);
+        }
+
         $stats = [
-            'total_tools'     => Tool::count(),
-            'available_tools' => Tool::available()->count(),
-            'loaned_tools'    => Tool::where('status', 'loaned')->count(),
-            'overdue_tools'   => Tool::overdue()->count(),
-            'active_loans'    => Loan::whereIn('status', ['active', 'overdue'])->count(),
+            'total_tools'     => (clone $toolQ)->count(),
+            'available_tools' => (clone $toolQ)->available()->count(),
+            'loaned_tools'    => (clone $toolQ)->where('status', 'loaned')->count(),
+            'overdue_tools'   => (clone $toolQ)->overdue()->count(),
+            'active_loans'    => (clone $loanQ)->whereIn('status', ['active', 'overdue'])->count(),
         ];
 
         // Zimmet Sorgusu (Hem anlık dışarıda olan aktif/gecikmiş parçalar hem de seçilen tarihte verilen/iade edilen tüm hareketler)
         $query = Loan::with(['tool.slot.shelf.block', 'personnel', 'loanedByUser']);
+        if ($roomId) {
+            $query->where('toolroom_id', $roomId);
+        }
 
         if ($isToday) {
             $loansForView = $query->where(function ($q) use ($carbonDate) {
@@ -141,6 +152,7 @@ class AdminPortalController extends Controller
         $loan = Loan::create([
             'tool_id'           => $tool->id,
             'personnel_id'      => $personnel->id,
+            'toolroom_id'       => $tool->toolroom_id ?? (Auth::user()?->toolroom_id ?? 1),
             'loaned_at'         => $now,
             'planned_return_at' => $plannedReturn,
             'status'            => 'active',
@@ -258,8 +270,13 @@ class AdminPortalController extends Controller
         $user = Auth::user();
         $categories = Tool::CATEGORIES;
         
-        // Gözleri (slots) hiyerarşik isimleriyle getir
-        $slots = Slot::with('shelf.block')->get()->map(function ($slot) {
+        // Gözleri (slots) kullanıcının takımhanesine göre getir
+        $slotQuery = Slot::with('shelf.block');
+        if ($user && $user->toolroom_id) {
+            $slotQuery->whereHas('shelf.block', fn ($q) => $q->where('toolroom_id', $user->toolroom_id));
+        }
+
+        $slots = $slotQuery->get()->map(function ($slot) {
             return [
                 'id' => $slot->id,
                 'label' => $slot->full_label,
@@ -284,6 +301,9 @@ class AdminPortalController extends Controller
             'image'         => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
 
+        $slot = Slot::with('shelf.block')->findOrFail($request->slot_id);
+        $toolroomId = Auth::user()?->toolroom_id ?? ($slot->shelf?->block?->toolroom_id ?? 1);
+
         $serialNo = trim($request->input('serial_no', ''));
         $existingCount = 0;
 
@@ -295,7 +315,6 @@ class AdminPortalController extends Controller
             $serialNo = Tool::generateSerialNo();
         }
 
-
         // Fotoğraf yükleme
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -304,6 +323,7 @@ class AdminPortalController extends Controller
 
         // Aleti oluştur
         $tool = Tool::create([
+            'toolroom_id'   => $toolroomId,
             'name'          => trim($request->name),
             'category'      => $request->category,
             'slot_id'       => $request->slot_id,

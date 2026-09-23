@@ -13,12 +13,21 @@ class StatsOverviewWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $totalTools    = Tool::count();
-        $availableTools= Tool::available()->count();
-        $loanedTools   = Tool::where('status', 'loaned')->count();
-        $overdueLoans  = Loan::overdue()->count();
-        $todayLoans    = Loan::today()->count();
-        $maintenanceTools = Tool::where('status', 'maintenance')->count();
+        $user = auth()->user();
+        $toolQ = Tool::query();
+        $loanQ = Loan::query();
+
+        if ($user && $user->toolroom_id) {
+            $toolQ->where('toolroom_id', $user->toolroom_id);
+            $loanQ->where('toolroom_id', $user->toolroom_id);
+        }
+
+        $totalTools       = (clone $toolQ)->count();
+        $availableTools   = (clone $toolQ)->available()->count();
+        $loanedTools      = (clone $toolQ)->where('status', 'loaned')->count();
+        $overdueLoans     = (clone $loanQ)->overdue()->count();
+        $todayLoans       = (clone $loanQ)->today()->count();
+        $maintenanceTools = (clone $toolQ)->where('status', 'maintenance')->count();
 
         return [
             Stat::make('Toplam Parça', $totalTools)

@@ -30,7 +30,9 @@ class BlockResource extends Resource
                 ->label('Takımhane')
                 ->relationship('toolroom', 'name')
                 ->required()
-                ->default(1)
+                ->default(fn () => auth()->user()?->toolroom_id ?? 1)
+                ->disabled(fn () => auth()->user()?->toolroom_id !== null)
+                ->dehydrated()
                 ->preload(),
 
             TextInput::make('name')
@@ -78,10 +80,28 @@ class BlockResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->filters([
+                \Filament\Tables\Filters\SelectFilter::make('toolroom_id')
+                    ->label('Takımhane')
+                    ->relationship('toolroom', 'name')
+                    ->visible(fn () => auth()->user()?->toolroom_id === null)
+                    ->preload(),
+            ])
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
             ]);
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
+
+        return $query;
     }
 
     public static function getPages(): array

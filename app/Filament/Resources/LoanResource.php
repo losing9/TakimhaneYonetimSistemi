@@ -33,10 +33,13 @@ class LoanResource extends Resource
         return $form->schema([
             Select::make('tool_id')
                 ->label('Parça')
-                ->options(
-                    // Ödünç verme formunda sadece "Mevcut" parçalar göster
-                    fn () => Tool::available()->pluck('name', 'id')
-                )
+                ->options(function () {
+                    $q = Tool::available();
+                    if ($roomId = auth()->user()?->toolroom_id) {
+                        $q->where('toolroom_id', $roomId);
+                    }
+                    return $q->pluck('name', 'id');
+                })
                 ->required()
                 ->searchable()
                 ->preload()
@@ -258,6 +261,17 @@ class LoanResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
+
+        return $query;
+    }
+
     public static function getPages(): array
     {
         return [
@@ -268,12 +282,16 @@ class LoanResource extends Resource
     }
 
     /**
-     * Yeni zimmet oluştururken panel kullanıcısını kaydet
+     * Yeni zimmet oluştururken panel kullanıcısını ve takımhaneyi kaydet
      */
     public static function mutateFormDataBeforeCreate(array $data): array
     {
         $data['created_by'] = auth()->id();
         $data['status']     = 'active';
+        if (!empty($data['tool_id'])) {
+            $tool = Tool::find($data['tool_id']);
+            $data['toolroom_id'] = $tool?->toolroom_id ?? (auth()->user()?->toolroom_id ?? 1);
+        }
         return $data;
     }
 }

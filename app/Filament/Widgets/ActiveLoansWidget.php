@@ -45,7 +45,11 @@ class ActiveLoansWidget extends Widget
 
     public function getAvailableToolsProperty(): Collection
     {
-        return Tool::available()->with('slot.shelf.block')->orderBy('name')->get();
+        $q = Tool::available()->with('slot.shelf.block')->orderBy('name');
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $q->where('toolroom_id', $roomId);
+        }
+        return $q->get();
     }
 
     public function getPersonnelListProperty(): Collection
@@ -56,6 +60,9 @@ class ActiveLoansWidget extends Widget
     public function getDailyStatsProperty(): array
     {
         $query = Loan::with(['tool', 'personnel', 'loanedByUser']);
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
         $carbonDate = $this->selectedCarbonDate;
 
         if ($this->isToday) {
@@ -82,6 +89,9 @@ class ActiveLoansWidget extends Widget
     public function getGroupedLoansProperty(): Collection
     {
         $query = Loan::with(['tool.slot.shelf.block', 'personnel', 'loanedByUser']);
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
         $carbonDate = $this->selectedCarbonDate;
 
         // Hem anlık dışarıda olanları hem de seçilen günde verilen veya iade edilen tüm hareketleri getir
@@ -205,6 +215,7 @@ class ActiveLoansWidget extends Widget
         Loan::create([
             'tool_id'           => $tool->id,
             'personnel_id'      => $personnel->id,
+            'toolroom_id'       => $tool->toolroom_id ?? (Auth::user()?->toolroom_id ?? 1),
             'loaned_at'         => $now,
             'planned_return_at' => $plannedReturn,
             'status'            => 'active',

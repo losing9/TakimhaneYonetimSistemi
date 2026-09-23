@@ -15,18 +15,26 @@ class OverdueToolsWidget extends BaseWidget
 
     public static function canView(): bool
     {
-        return Loan::overdue()->exists();
+        $q = Loan::overdue();
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $q->where('toolroom_id', $roomId);
+        }
+        return $q->exists();
     }
 
     public function table(Table $table): Table
     {
+        $query = Loan::query()
+            ->overdue()
+            ->with(['tool', 'personnel'])
+            ->orderBy('planned_return_at');
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
+
         return $table
-            ->query(
-                Loan::query()
-                    ->overdue()
-                    ->with(['tool', 'personnel'])
-                    ->orderBy('planned_return_at')
-            )
+            ->query($query)
             ->columns([
                 TextColumn::make('tool.name')
                     ->label('Parça')

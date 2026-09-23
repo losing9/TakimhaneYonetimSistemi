@@ -67,7 +67,9 @@ class ToolResource extends Resource
                         ->label('🏢 Takımhane')
                         ->relationship('toolroom', 'name')
                         ->required()
-                        ->default(1)
+                        ->default(fn () => auth()->user()?->toolroom_id ?? 1)
+                        ->disabled(fn () => auth()->user()?->toolroom_id !== null)
+                        ->dehydrated()
                         ->searchable()
                         ->preload(),
 
@@ -142,7 +144,11 @@ class ToolResource extends Resource
                 ->schema([
                     Select::make('slot_id')
                         ->label('Konum (Raf Gözü)')
-                        ->relationship('slot', 'name')
+                        ->relationship('slot', 'name', function (Builder $query) {
+                            if ($roomId = auth()->user()?->toolroom_id) {
+                                $query->whereHas('shelf.block', fn ($q) => $q->where('toolroom_id', $roomId));
+                            }
+                        })
                         ->getOptionLabelFromRecordUsing(fn ($record) => $record->full_label)
                         ->searchable()
                         ->preload()
@@ -431,6 +437,7 @@ class ToolResource extends Resource
                 SelectFilter::make('toolroom_id')
                     ->label('🏢 Takımhane')
                     ->relationship('toolroom', 'name')
+                    ->visible(fn () => auth()->user()?->toolroom_id === null)
                     ->preload(),
 
                 SelectFilter::make('tool_group_id')
@@ -489,6 +496,17 @@ class ToolResource extends Resource
                 ]),
             ])
             ->striped();
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->where('toolroom_id', $roomId);
+        }
+
+        return $query;
     }
 
     public static function getPages(): array

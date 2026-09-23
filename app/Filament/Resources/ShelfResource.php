@@ -30,7 +30,11 @@ class ShelfResource extends Resource
         return $form->schema([
             Select::make('block_id')
                 ->label('Blok')
-                ->relationship('block', 'name')
+                ->relationship('block', 'name', function (\Illuminate\Database\Eloquent\Builder $query) {
+                    if ($roomId = auth()->user()?->toolroom_id) {
+                        $query->where('toolroom_id', $roomId);
+                    }
+                })
                 ->required()
                 ->searchable()
                 ->preload(),
@@ -76,13 +80,28 @@ class ShelfResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('block')
-                    ->relationship('block', 'name')
+                    ->relationship('block', 'name', function (\Illuminate\Database\Eloquent\Builder $query) {
+                        if ($roomId = auth()->user()?->toolroom_id) {
+                            $query->where('toolroom_id', $roomId);
+                        }
+                    })
                     ->label('Blok'),
             ])
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
             ]);
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->whereHas('block', fn ($q) => $q->where('toolroom_id', $roomId));
+        }
+
+        return $query;
     }
 
     public static function getPages(): array

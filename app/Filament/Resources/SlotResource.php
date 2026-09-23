@@ -31,7 +31,11 @@ class SlotResource extends Resource
         return $form->schema([
             Select::make('shelf_id')
                 ->label('Raf')
-                ->relationship('shelf', 'name')
+                ->relationship('shelf', 'name', function (\Illuminate\Database\Eloquent\Builder $query) {
+                    if ($roomId = auth()->user()?->toolroom_id) {
+                        $query->whereHas('block', fn ($q) => $q->where('toolroom_id', $roomId));
+                    }
+                })
                 ->getOptionLabelFromRecordUsing(fn ($record) => $record->full_label)
                 ->required()
                 ->searchable()
@@ -94,7 +98,11 @@ class SlotResource extends Resource
             ->recordAction('view_tools')
             ->filters([
                 SelectFilter::make('shelf')
-                    ->relationship('shelf', 'name')
+                    ->relationship('shelf', 'name', function (\Illuminate\Database\Eloquent\Builder $query) {
+                        if ($roomId = auth()->user()?->toolroom_id) {
+                            $query->whereHas('block', fn ($q) => $q->where('toolroom_id', $roomId));
+                        }
+                    })
                     ->label('Raf'),
             ])
             ->actions([
@@ -119,6 +127,17 @@ class SlotResource extends Resource
                     DeleteAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if ($roomId = auth()->user()?->toolroom_id) {
+            $query->whereHas('shelf.block', fn ($q) => $q->where('toolroom_id', $roomId));
+        }
+
+        return $query;
     }
 
     public static function getPages(): array

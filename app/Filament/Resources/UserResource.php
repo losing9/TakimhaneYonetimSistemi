@@ -22,6 +22,11 @@ class UserResource extends Resource
     protected static ?string $modelLabel       = 'Kullanıcı';
     protected static ?string $pluralModelLabel = 'Kullanıcılar';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -46,7 +51,16 @@ class UserResource extends Resource
                         'takimhane_sor' => '🔑 Takımhane Sorumlusu',
                         'personel'      => '👤 Personel',
                     ])
-                    ->default('personel'),
+                    ->default('personel')
+                    ->reactive(),
+
+                Forms\Components\Select::make('toolroom_id')
+                    ->label('Sorumlu Olduğu Takımhane')
+                    ->relationship('toolroom', 'name')
+                    ->helperText('Takımhane sorumlusu rolü için zorunludur. Boş bırakılırsa tüm takımhaneler yetkisi (Süper Admin) geçerli olur.')
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
 
                 Forms\Components\Select::make('personnel_id')
                     ->label('Bağlı Personel Kaydı')
@@ -114,6 +128,13 @@ class UserResource extends Resource
                         default         => $state,
                     }),
 
+                Tables\Columns\TextColumn::make('toolroom.name')
+                    ->label('Sorumlu Takımhane')
+                    ->badge()
+                    ->color('info')
+                    ->placeholder('Tüm Takımhaneler (Genel)')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('personnel.name')
                     ->label('Personel Kaydı')
@@ -134,6 +155,9 @@ class UserResource extends Resource
                         'takimhane_sor' => 'Takımhane Sorumlusu',
                         'personel'      => 'Personel',
                     ]),
+                Tables\Filters\SelectFilter::make('toolroom_id')
+                    ->label('Takımhane')
+                    ->relationship('toolroom', 'name'),
             ])
             ->actions([
                 Tables\Actions\Action::make('reset_password')
