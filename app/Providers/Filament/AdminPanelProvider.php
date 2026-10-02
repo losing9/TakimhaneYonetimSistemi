@@ -37,19 +37,21 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter')
             ->renderHook(
+                'panels::head.done',
+                fn () => view('filament.components.custom-theme')
+            )
+            ->renderHook(
                 'panels::body.end',
                 fn () => view('filament.components.global-lightbox')
             )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                StatsOverviewWidget::class,
                 ActiveLoansWidget::class,
-                Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
