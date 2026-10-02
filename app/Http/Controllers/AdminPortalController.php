@@ -101,12 +101,22 @@ class AdminPortalController extends Controller
             'categories' => $categoryBreakdown,
         ];
 
-        // 3. Tool Inventory & Status Tablosu (Mockuptaki Sağ Tablo)
+        // 3. Tool Inventory & Status Tablosu (Sayfalamalı & Arama Destekli)
         $inventoryToolsQuery = Tool::with(['slot.shelf.block', 'toolGroup', 'activeLoan.personnel', 'activeLoan.loanedByUser']);
         if ($roomId) {
             $inventoryToolsQuery->where('toolroom_id', $roomId);
         }
-        $inventoryTools = $inventoryToolsQuery->orderBy('id', 'desc')->take(150)->get();
+
+        if ($request->filled('search')) {
+            $s = '%' . trim($request->input('search')) . '%';
+            $inventoryToolsQuery->where(function ($sub) use ($s) {
+                $sub->where('name', 'like', $s)
+                    ->orWhere('serial_no', 'like', $s)
+                    ->orWhere('barcode', 'like', $s);
+            });
+        }
+
+        $inventoryTools = $inventoryToolsQuery->orderBy('id', 'desc')->paginate(15)->withQueryString();
 
         $stats = [
             'total_tools'     => $totalToolsCount,

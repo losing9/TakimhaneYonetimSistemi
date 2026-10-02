@@ -6,16 +6,25 @@ use App\Models\Loan;
 use App\Models\Tool;
 use App\Models\Toolroom;
 use Filament\Pages\Dashboard as BaseDashboard;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Livewire\WithPagination;
 
 class Dashboard extends BaseDashboard
 {
+    use WithPagination;
+
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
     protected static ?string $title = 'Genel Bakış & Yönetim';
     protected static string $view = 'filament.pages.dashboard';
 
     public ?int $selectedToolroomId = null;
     public string $search = '';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
 
     public function mount(): void
     {
@@ -31,6 +40,7 @@ class Dashboard extends BaseDashboard
     public function switchToolroom(int $id): void
     {
         $this->selectedToolroomId = $id;
+        $this->resetPage();
     }
 
     public function getToolroomsProperty(): Collection
@@ -101,7 +111,7 @@ class Dashboard extends BaseDashboard
         ];
     }
 
-    public function getInventoryToolsProperty(): Collection
+    public function getInventoryToolsProperty(): LengthAwarePaginator
     {
         $q = Tool::with(['slot.shelf.block', 'toolGroup', 'activeLoan.personnel', 'activeLoan.loanedByUser']);
         if ($this->selectedToolroomId) {
@@ -117,6 +127,6 @@ class Dashboard extends BaseDashboard
             });
         }
 
-        return $q->orderBy('id', 'desc')->take(100)->get();
+        return $q->orderBy('id', 'desc')->paginate(15);
     }
 }

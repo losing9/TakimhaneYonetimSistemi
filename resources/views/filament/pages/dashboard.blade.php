@@ -1,17 +1,17 @@
 <x-filament-panels::page>
 <style>
-    /* ─── Switcher Bar (Mockup Header Tabs) ─── */
+    /* ─── Switcher Bar ─── */
     .f-toolroom-switch-container {
         display: flex;
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
     }
 
     .f-toolroom-switch-tab {
         flex: 1;
-        min-width: 240px;
-        height: 52px;
+        min-width: 220px;
+        height: 50px;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -53,7 +53,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
     }
 
@@ -65,32 +65,20 @@
         text-transform: uppercase;
     }
 
-    /* ─── Main Two-Column Layout ─── */
-    .f-dashboard-grid {
+    /* ─── Top Charts Grid (Full Width 2-Cards Row) ─── */
+    .f-charts-row {
         display: grid;
-        grid-template-columns: 360px 1fr;
-        gap: 20px;
-        align-items: start;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        margin-bottom: 20px;
     }
 
-    @media (max-width: 1200px) {
-        .f-dashboard-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .f-charts-column {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-    }
-
-    /* ─── Donut Chart Widgets ─── */
+    /* ─── Card Base ─── */
     .f-card {
         background: #18202c;
         border: 1px solid #263346;
         border-radius: 14px;
-        padding: 18px;
+        padding: 18px 20px;
         box-shadow: 0 4px 18px rgba(0,0,0,0.25);
     }
 
@@ -110,7 +98,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
+        gap: 20px;
         padding-top: 6px;
     }
 
@@ -188,10 +176,10 @@
         font-size: 13px;
     }
 
-    /* ─── Inventory Table ─── */
+    /* ─── Inventory Table (Full Width) ─── */
     .f-table-container {
         overflow-x: auto;
-        margin-top: 10px;
+        margin-top: 12px;
         border-radius: 8px;
     }
 
@@ -210,17 +198,16 @@
         font-weight: 800;
         letter-spacing: 0.8px;
         text-transform: uppercase;
-        padding: 10px 12px;
+        padding: 12px 14px;
         border-bottom: 1px solid #263346;
         white-space: nowrap;
     }
 
     .f-custom-table td {
-        padding: 11px 12px;
+        padding: 12px 14px;
         border-bottom: 1px solid rgba(38, 51, 70, 0.6);
         color: #e2e8f0;
         vertical-align: middle;
-        white-space: nowrap;
         background: #18202c;
     }
 
@@ -233,7 +220,7 @@
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        padding: 4px 9px;
+        padding: 4px 10px;
         border-radius: 99px;
         font-size: 11px;
         font-weight: 700;
@@ -249,7 +236,7 @@
         color: #0c1017;
         font-weight: 800;
         font-size: 12px;
-        padding: 7px 14px;
+        padding: 8px 14px;
         border-radius: 8px;
         text-decoration: none;
         display: inline-flex;
@@ -312,246 +299,263 @@
         </a>
         <a href="{{ route('export.tools.excel', ['toolroom_id' => $this->selectedToolroomId]) }}" class="f-btn-accent">
             <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1.8 14.8l-1.4 1.4-2.4-2.4-2.4 2.4-1.4-1.4 2.4-2.4-2.4-2.4 1.4-1.4 2.4 2.4 2.4-2.4 1.4 1.4-2.4 2.4 2.4 2.4zM13 9V3.5L18.5 9H13z"/>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1.8 14.8l-1.4 1.4-2.4-2.4-2.4 2.4-1.4-1.4 2.4-2.4-2.4-2.4 1.4-1.4 2.4 2.4 2.4-2.4 1.4 1.4-2.4 2.4 2.4zM13 9V3.5L18.5 9H13z"/>
             </svg>
             EXCEL EXPORT
         </a>
     </div>
 </div>
 
-{{-- 3. İKİ KOLONLU ANA GRID --}}
-<div class="f-dashboard-grid">
-    {{-- SOL KOLON: GRAFİKLER --}}
-    <div class="f-charts-column">
-        {{-- CARD 1: ACTIVE LOANS STATUS --}}
-        @php
-            $chart1 = $this->activeLoansChart;
-            $tot1 = max(1, $chart1['total']);
-            $cats1 = $chart1['categories'];
-            $colors1 = ['#f59e0b', '#ea580c', '#eab308', '#6366f1', '#10b981'];
-            $off1 = 0;
-            $idx1 = 0;
-        @endphp
-        <div class="f-card">
-            <div class="f-card-title">
-                <span>ACTIVE LOANS STATUS</span>
-                <span style="font-size:11px; color:#8b9bb4; font-weight:600;">Aktif Zimmetler</span>
-            </div>
-
-            <div class="f-donut-card-body">
-                <div class="f-donut-svg-wrapper">
-                    <svg class="f-donut-svg" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
-                        @if($chart1['total'] == 0)
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
-                        @else
-                            @foreach($cats1 as $catName => $catCount)
-                                @php
-                                    $pct = ($catCount / $tot1) * 100;
-                                    $color = $colors1[$idx1 % count($colors1)];
-                                    $dash = "{$pct} " . (100 - $pct);
-                                    $strokeOffset = -$off1;
-                                    $off1 += $pct;
-                                    $idx1++;
-                                @endphp
-                                <circle cx="18" cy="18" r="14" fill="transparent"
-                                        stroke="{{ $color }}" stroke-width="4.5"
-                                        stroke-dasharray="{{ $dash }}"
-                                        stroke-dashoffset="{{ $strokeOffset }}"></circle>
-                            @endforeach
-                        @endif
-                    </svg>
-                    <div class="f-donut-center-content">
-                        <span class="f-donut-center-label">Total</span>
-                        <span class="f-donut-center-value">{{ $chart1['total'] }}</span>
-                    </div>
-                </div>
-
-                <div class="f-donut-legend-list">
-                    @php $k = 0; @endphp
-                    @foreach($cats1 as $catName => $catCount)
-                        @php $color = $colors1[$k % count($colors1)]; $k++; @endphp
-                        <div class="f-donut-legend-item">
-                            <div class="f-donut-legend-left">
-                                <span class="f-donut-legend-indicator" style="background:{{ $color }};"></span>
-                                <span style="max-width:120px; overflow:hidden; text-overflow:ellipsis;" title="{{ $catName }}">
-                                    {{ $catName }}
-                                </span>
-                            </div>
-                            <span class="f-donut-legend-value">{{ $catCount }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+{{-- 3. ÜST GRAFİKLER SIRASI (2 KART YAN YANA, TAM GENİŞLİK) --}}
+<div class="f-charts-row">
+    {{-- CARD 1: ACTIVE LOANS STATUS --}}
+    @php
+        $chart1 = $this->activeLoansChart;
+        $tot1 = max(1, $chart1['total']);
+        $cats1 = $chart1['categories'];
+        $colors1 = ['#f59e0b', '#ea580c', '#eab308', '#6366f1', '#10b981'];
+        $off1 = 0;
+        $idx1 = 0;
+    @endphp
+    <div class="f-card">
+        <div class="f-card-title">
+            <span>ACTIVE LOANS STATUS</span>
+            <span style="font-size:11px; color:#8b9bb4; font-weight:600;">Aktif Zimmetler</span>
         </div>
 
-        {{-- CARD 2: TOOL AVAILABILITY --}}
-        @php
-            $avail = $this->availabilityStats;
-            $avP = $avail['available_pct'];
-            $useP = $avail['in_use_pct'];
-            $mnP = $avail['maintenance_pct'];
-        @endphp
-        <div class="f-card">
-            <div class="f-card-title">
-                <span>TOOL AVAILABILITY</span>
-                <span style="font-size:11px; color:#8b9bb4; font-weight:600;">Müsaitlik Oranı</span>
+        <div class="f-donut-card-body">
+            <div class="f-donut-svg-wrapper">
+                <svg class="f-donut-svg" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
+                    @if($chart1['total'] == 0)
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
+                    @else
+                        @foreach($cats1 as $catName => $catCount)
+                            @php
+                                $pct = ($catCount / $tot1) * 100;
+                                $color = $colors1[$idx1 % count($colors1)];
+                                $dash = "{$pct} " . (100 - $pct);
+                                $strokeOffset = -$off1;
+                                $off1 += $pct;
+                                $idx1++;
+                            @endphp
+                            <circle cx="18" cy="18" r="14" fill="transparent"
+                                    stroke="{{ $color }}" stroke-width="4.5"
+                                    stroke-dasharray="{{ $dash }}"
+                                    stroke-dashoffset="{{ $strokeOffset }}"></circle>
+                        @endforeach
+                    @endif
+                </svg>
+                <div class="f-donut-center-content">
+                    <span class="f-donut-center-label">Total</span>
+                    <span class="f-donut-center-value">{{ $chart1['total'] }}</span>
+                </div>
             </div>
 
-            <div class="f-donut-card-body">
-                <div class="f-donut-svg-wrapper">
-                    <svg class="f-donut-svg" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
-                        @if($avail['total'] == 0)
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
-                        @else
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#f59e0b" stroke-width="4.5"
-                                    stroke-dasharray="{{ $avP }} {{ 100 - $avP }}" stroke-dashoffset="0"></circle>
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#ea580c" stroke-width="4.5"
-                                    stroke-dasharray="{{ $useP }} {{ 100 - $useP }}" stroke-dashoffset="-{{ $avP }}"></circle>
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#fbbf24" stroke-width="4.5"
-                                    stroke-dasharray="{{ $mnP }} {{ 100 - $mnP }}" stroke-dashoffset="-{{ $avP + $useP }}"></circle>
-                        @endif
-                    </svg>
-                    <div class="f-donut-center-content">
-                        <span class="f-donut-center-label">Available</span>
-                        <span class="f-donut-center-value" style="color:#f59e0b;">{{ $avP }}%</span>
-                    </div>
-                </div>
-
-                <div class="f-donut-legend-list">
+            <div class="f-donut-legend-list">
+                @php $k = 0; @endphp
+                @foreach($cats1 as $catName => $catCount)
+                    @php $color = $colors1[$k % count($colors1)]; $k++; @endphp
                     <div class="f-donut-legend-item">
                         <div class="f-donut-legend-left">
-                            <span class="f-donut-legend-indicator" style="background:#f59e0b;"></span>
-                            <span>Available</span>
+                            <span class="f-donut-legend-indicator" style="background:{{ $color }};"></span>
+                            <span style="max-width:140px; overflow:hidden; text-overflow:ellipsis;" title="{{ $catName }}">
+                                {{ $catName }}
+                            </span>
                         </div>
-                        <span class="f-donut-legend-value">{{ $avP }}% ({{ $avail['available'] }})</span>
+                        <span class="f-donut-legend-value">{{ $catCount }}</span>
                     </div>
-                    <div class="f-donut-legend-item">
-                        <div class="f-donut-legend-left">
-                            <span class="f-donut-legend-indicator" style="background:#ea580c;"></span>
-                            <span>In Use</span>
-                        </div>
-                        <span class="f-donut-legend-value">{{ $useP }}% ({{ $avail['in_use'] }})</span>
-                    </div>
-                    <div class="f-donut-legend-item">
-                        <div class="f-donut-legend-left">
-                            <span class="f-donut-legend-indicator" style="background:#fbbf24;"></span>
-                            <span>Maintenance</span>
-                        </div>
-                        <span class="f-donut-legend-value">{{ $mnP }}% ({{ $avail['maintenance'] }})</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
 
-    {{-- SAĞ KOLON: TOOL INVENTORY & STATUS TABLOSU --}}
+    {{-- CARD 2: TOOL AVAILABILITY --}}
+    @php
+        $avail = $this->availabilityStats;
+        $avP = $avail['available_pct'];
+        $useP = $avail['in_use_pct'];
+        $mnP = $avail['maintenance_pct'];
+    @endphp
     <div class="f-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-            <div>
-                <h2 style="font-size:14px; font-weight:800; letter-spacing:0.8px; color:#fff; text-transform:uppercase;">
-                    TOOL INVENTORY & STATUS
-                </h2>
-                <p style="font-size:11px; color:#8b9bb4; margin-top:2px;">
-                    Canlı stok, zimmet ve arıza durumu
-                </p>
-            </div>
-
-            <div style="min-width:220px;">
-                <input type="text" wire:model.live.debounce.300ms="search"
-                       placeholder="🔍 Anında ara..."
-                       style="background:#111620; border:1px solid #263346; color:#fff; border-radius:6px; padding:6px 12px; font-size:12px; width:100%; outline:none;">
-            </div>
+        <div class="f-card-title">
+            <span>TOOL AVAILABILITY</span>
+            <span style="font-size:11px; color:#8b9bb4; font-weight:600;">Müsaitlik Oranı</span>
         </div>
 
-        <div class="f-table-container">
-            <table class="f-custom-table">
-                <thead>
+        <div class="f-donut-card-body">
+            <div class="f-donut-svg-wrapper">
+                <svg class="f-donut-svg" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
+                    @if($avail['total'] == 0)
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
+                    @else
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#f59e0b" stroke-width="4.5"
+                                stroke-dasharray="{{ $avP }} {{ 100 - $avP }}" stroke-dashoffset="0"></circle>
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#ea580c" stroke-width="4.5"
+                                stroke-dasharray="{{ $useP }} {{ 100 - $useP }}" stroke-dashoffset="-{{ $avP }}"></circle>
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#fbbf24" stroke-width="4.5"
+                                stroke-dasharray="{{ $mnP }} {{ 100 - $mnP }}" stroke-dashoffset="-{{ $avP + $useP }}"></circle>
+                    @endif
+                </svg>
+                <div class="f-donut-center-content">
+                    <span class="f-donut-center-label">Available</span>
+                    <span class="f-donut-center-value" style="color:#f59e0b;">{{ $avP }}%</span>
+                </div>
+            </div>
+
+            <div class="f-donut-legend-list">
+                <div class="f-donut-legend-item">
+                    <div class="f-donut-legend-left">
+                        <span class="f-donut-legend-indicator" style="background:#f59e0b;"></span>
+                        <span>Available</span>
+                    </div>
+                    <span class="f-donut-legend-value">{{ $avP }}% ({{ $avail['available'] }})</span>
+                </div>
+                <div class="f-donut-legend-item">
+                    <div class="f-donut-legend-left">
+                        <span class="f-donut-legend-indicator" style="background:#ea580c;"></span>
+                        <span>In Use</span>
+                    </div>
+                    <span class="f-donut-legend-value">{{ $useP }}% ({{ $avail['in_use'] }})</span>
+                </div>
+                <div class="f-donut-legend-item">
+                    <div class="f-donut-legend-left">
+                        <span class="f-donut-legend-indicator" style="background:#fbbf24;"></span>
+                        <span>Maintenance</span>
+                    </div>
+                    <span class="f-donut-legend-value">{{ $mnP }}% ({{ $avail['maintenance'] }})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 4. ALT ENVANTER TABLOSU (TAM EKRAN GENİŞLİK - EKRANA RAHATÇA SIĞAR) --}}
+<div class="f-card">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+        <div>
+            <h2 style="font-size:15px; font-weight:800; letter-spacing:0.8px; color:#fff; text-transform:uppercase;">
+                TOOL INVENTORY & STATUS
+            </h2>
+            <p style="font-size:11px; color:#8b9bb4; margin-top:2px;">
+                Canlı stok, zimmetli personel ve raf/göz konumları
+            </p>
+        </div>
+
+        <div style="min-width:260px;">
+            <input type="text" wire:model.live.debounce.300ms="search"
+                   placeholder="🔍 Takım adı, seri no veya barkod ile ara..."
+                   style="background:#111620; border:1px solid #263346; color:#fff; border-radius:8px; padding:8px 14px; font-size:12px; width:100%; outline:none;">
+        </div>
+    </div>
+
+    <div class="f-table-container">
+        <table class="f-custom-table">
+            <thead>
+                <tr>
+                    <th style="width:100px;">ID ↑</th>
+                    <th>Tool Name</th>
+                    <th>Category</th>
+                    <th>Serial No.</th>
+                    <th>Current Location / User</th>
+                    <th>Return Date</th>
+                    <th style="text-align:right;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($this->inventoryTools as $tool)
+                    @php
+                        $loan = $tool->activeLoan;
+                        $isOverdue = $loan && ($loan->isOverdue() || $loan->status === 'overdue');
+                        $userOrLocation = '-';
+                        $returnDate = '-';
+
+                        if ($tool->status === 'loaned' && $loan) {
+                            $userOrLocation = $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Zimmette');
+                            $returnDate = $loan->planned_return_at ? $loan->planned_return_at->format('d.m.Y H:i') : 'Bugün';
+                        } elseif ($tool->slot) {
+                            $bName = $tool->slot->shelf?->block?->name ?? '';
+                            $sName = $tool->slot->shelf?->name ?? '';
+                            $gName = $tool->slot->name ?? '';
+
+                            $locParts = [];
+                            if (!empty($bName)) $locParts[] = $bName;
+                            if (!empty($sName)) $locParts[] = is_numeric($sName) ? "Raf {$sName}" : $sName;
+                            if (!empty($gName)) $locParts[] = is_numeric($gName) ? "Göz {$gName}" : $gName;
+
+                            $userOrLocation = !empty($locParts) ? implode(' / ', $locParts) : ($tool->slot->full_label ?? 'Depo / Raf');
+                        } else {
+                            $userOrLocation = 'Depo / Raf';
+                        }
+
+                        $toolCode = 'TKM-' . str_pad($tool->id, 4, '0', STR_PAD_LEFT);
+                    @endphp
                     <tr>
-                        <th>ID ↑</th>
-                        <th>Tool Name</th>
-                        <th>Category</th>
-                        <th>Serial No.</th>
-                        <th>Current Location/User</th>
-                        <th>Return Date</th>
-                        <th style="text-align:right;">Status</th>
+                        <td>
+                            <span style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#cbd5e1; font-size:12px;">
+                                {{ $toolCode }}
+                            </span>
+                        </td>
+                        <td>
+                            <span style="font-weight:700; color:#fff; font-size:13px;">{{ $tool->name }}</span>
+                        </td>
+                        <td style="color:#cbd5e1; font-size:12px;">
+                            {{ $tool->toolGroup?->name ?? ($tool->category ? \App\Models\Tool::CATEGORIES[$tool->category] ?? $tool->category : 'Genel') }}
+                        </td>
+                        <td>
+                            <span style="font-family:'JetBrains Mono',monospace; color:#94a3b8; font-size:12px;">
+                                {{ $tool->serial_no ?? ($tool->barcode ?? '—') }}
+                            </span>
+                        </td>
+                        <td>
+                            @if($tool->status === 'loaned')
+                                <span style="color:#60a5fa; font-weight:700; display:inline-flex; align-items:center; gap:5px;">
+                                    👤 {{ $userOrLocation }}
+                                </span>
+                            @else
+                                <span style="color:#34d399; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+                                    📍 {{ $userOrLocation }}
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($tool->status === 'loaned')
+                                <span style="font-weight:600; font-size:12px; color:{{ $isOverdue ? '#f87171' : '#cbd5e1' }};">
+                                    {{ $returnDate }}
+                                </span>
+                            @else
+                                <span style="color:#64748b;">-</span>
+                            @endif
+                        </td>
+                        <td style="text-align:right;">
+                            @if($tool->status === 'available')
+                                <span class="f-status-badge f-status-available">Available</span>
+                            @elseif($isOverdue)
+                                <span class="f-status-badge f-status-overdue">Overdue</span>
+                            @elseif($tool->status === 'loaned')
+                                <span class="f-status-badge f-status-in-use">In Use</span>
+                            @elseif($tool->status === 'maintenance')
+                                <span class="f-status-badge f-status-maintenance">In Maintenance</span>
+                            @else
+                                <span class="f-status-badge f-status-maintenance">Scrapped</span>
+                            @endif
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse($this->inventoryTools as $tool)
-                        @php
-                            $loan = $tool->activeLoan;
-                            $isOverdue = $loan && ($loan->isOverdue() || $loan->status === 'overdue');
-                            $userOrLocation = '-';
-                            $returnDate = '-';
+                @empty
+                    <tr>
+                        <td colspan="7" style="text-align:center; padding:28px; color:#8b9bb4;">
+                            Kayıtlı takım bulunamadı.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
-                            if ($tool->status === 'loaned' && $loan) {
-                                $userOrLocation = $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Zimmette');
-                                $returnDate = $loan->planned_return_at ? $loan->planned_return_at->format('d/m H:i') : 'Bugün';
-                            } elseif ($tool->slot) {
-                                $bName = $tool->slot->shelf?->block?->name ?? '';
-                                $sNum = $tool->slot->shelf?->shelf_number ?? '';
-                                $gNum = $tool->slot->slot_number ?? '';
-                                $userOrLocation = trim("{$bName} R{$sNum}-G{$gNum}");
-                            } else {
-                                $userOrLocation = 'Depo / Raf';
-                            }
-
-                            $toolCode = $tool->barcode ?? ('TKM-' . str_pad($tool->id, 4, '0', STR_PAD_LEFT));
-                            if (strlen($toolCode) > 10) {
-                                $toolCode = substr($toolCode, -8);
-                            }
-                        @endphp
-                        <tr>
-                            <td><span style="font-family:monospace; font-weight:700; color:#cbd5e1;">{{ strtoupper($toolCode) }}</span></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:8px;">
-                                    <span style="font-weight:700; color:#fff;">{{ $tool->name }}</span>
-                                </div>
-                            </td>
-                            <td style="color:#cbd5e1;">
-                                {{ $tool->toolGroup?->name ?? ($tool->category ? \App\Models\Tool::CATEGORIES[$tool->category] ?? $tool->category : 'Heavy Duty') }}
-                            </td>
-                            <td><span style="font-family:monospace; color:#8b9bb4;">{{ $tool->serial_no ?? '—' }}</span></td>
-                            <td>
-                                @if($tool->status === 'loaned')
-                                    <span style="color:#60a5fa; font-weight:700;">👤 {{ $userOrLocation }}</span>
-                                @else
-                                    <span style="color:#8b9bb4;">📍 {{ $userOrLocation }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if($tool->status === 'loaned')
-                                    <span style="font-weight:600; color:{{ $isOverdue ? '#f87171' : '#cbd5e1' }};">{{ $returnDate }}</span>
-                                @else
-                                    <span style="color:#64748b;">-</span>
-                                @endif
-                            </td>
-                            <td style="text-align:right;">
-                                @if($tool->status === 'available')
-                                    <span class="f-status-badge f-status-available">Available</span>
-                                @elseif($isOverdue)
-                                    <span class="f-status-badge f-status-overdue">Overdue</span>
-                                @elseif($tool->status === 'loaned')
-                                    <span class="f-status-badge f-status-in-use">In Use</span>
-                                @elseif($tool->status === 'maintenance')
-                                    <span class="f-status-badge f-status-maintenance">In Maintenance</span>
-                                @else
-                                    <span class="f-status-badge f-status-maintenance">Scrapped</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" style="text-align:center; padding:24px; color:#8b9bb4;">
-                                Kayıtlı takım bulunamadı.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+    {{-- Sayfalama (Livewire Pagination) --}}
+    <div style="margin-top:16px;">
+        {{ $this->inventoryTools->links() }}
     </div>
 </div>
 </x-filament-panels::page>

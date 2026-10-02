@@ -7,20 +7,20 @@
     .toolroom-switch-container {
         display: flex;
         gap: 12px;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
     }
 
     .toolroom-switch-tab {
         flex: 1;
-        min-width: 240px;
-        height: 54px;
+        min-width: 220px;
+        height: 52px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 12px;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 800;
         letter-spacing: 0.6px;
         text-transform: uppercase;
@@ -46,8 +46,8 @@
     }
 
     .toolroom-switch-tab svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
 
     /* ─── Page Title Bar ─── */
@@ -56,12 +56,12 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
     }
 
     .dashboard-title-text {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 900;
         letter-spacing: 0.8px;
         color: #ffffff;
@@ -75,24 +75,12 @@
         flex-wrap: wrap;
     }
 
-    /* ─── Main Two-Column Layout ─── */
-    .dashboard-grid {
+    /* ─── Top Charts Grid (Full Width 2-Cards Row) ─── */
+    .charts-row {
         display: grid;
-        grid-template-columns: 380px 1fr;
-        gap: 22px;
-        align-items: start;
-    }
-
-    @media (max-width: 1200px) {
-        .dashboard-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .charts-column {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        margin-bottom: 20px;
     }
 
     /* ─── Donut Chart Widgets ─── */
@@ -101,13 +89,13 @@
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        padding-top: 8px;
+        padding-top: 6px;
     }
 
     .donut-svg-wrapper {
         position: relative;
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
         flex-shrink: 0;
     }
 
@@ -128,7 +116,7 @@
     }
 
     .donut-center-label {
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
         color: var(--muted);
         text-transform: uppercase;
@@ -136,7 +124,7 @@
     }
 
     .donut-center-value {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 900;
         color: #ffffff;
         line-height: 1;
@@ -147,14 +135,14 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
     }
 
     .donut-legend-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: #cbd5e1;
     }
@@ -166,8 +154,8 @@
     }
 
     .donut-legend-indicator {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 3px;
         flex-shrink: 0;
     }
@@ -175,10 +163,10 @@
     .donut-legend-value {
         font-weight: 800;
         color: #ffffff;
-        font-size: 14px;
+        font-size: 13px;
     }
 
-    /* ─── Inventory Table Card ─── */
+    /* ─── Inventory Table (Full Width) ─── */
     .table-container {
         overflow-x: auto;
         margin-top: 12px;
@@ -194,7 +182,7 @@
     }
 
     .custom-admin-table th {
-        background: #141b25;
+        background: #131a24;
         color: #8b9bb4;
         font-size: 11px;
         font-weight: 800;
@@ -210,7 +198,6 @@
         border-bottom: 1px solid rgba(38, 51, 70, 0.6);
         color: #e2e8f0;
         vertical-align: middle;
-        white-space: nowrap;
         background: #18202c;
     }
 
@@ -218,22 +205,9 @@
         background: #1e2837;
     }
 
-    .tool-id-tag {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px;
-        font-weight: 700;
-        color: #cbd5e1;
-    }
-
-    .tool-name-cell {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
     .tool-thumb-img {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         border-radius: 6px;
         object-fit: cover;
         background: #0d121a;
@@ -242,20 +216,20 @@
     }
 
     .tool-thumb-placeholder {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         border-radius: 6px;
         background: #131a24;
         border: 1px solid var(--border);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
+        font-size: 15px;
     }
 
     /* ─── Collapsible Operations Accordion ─── */
     .operations-drawer {
-        margin-top: 30px;
+        margin-top: 24px;
         border-radius: var(--radius-lg);
         background: var(--surface);
         border: 1px solid var(--border);
@@ -263,7 +237,7 @@
     }
 
     .operations-drawer-header {
-        padding: 16px 20px;
+        padding: 14px 18px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -271,11 +245,23 @@
         background: #141b25;
         border-bottom: 1px solid var(--border);
     }
+
+    /* Pagination Styling */
+    .custom-pagination-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
 </style>
 @endpush
 
 @section('content')
-{{-- 1. TAKIMHANE GEÇİŞ SEKMELERİ (Mockup: [ 🚚 HEAVY VEHICLE ] vs [ 🚗 PASSENGER CAR ]) --}}
+{{-- 1. TAKIMHANE GEÇİŞ SEKMELERİ --}}
 <div class="toolroom-switch-container">
     @forelse($allToolrooms as $room)
         @php
@@ -315,7 +301,7 @@
                 {{ strtoupper($currentToolroom?->name ?? 'TOOLROOM MANAGER') }}
             @endif
         </h1>
-        <div style="font-size:12px; color:var(--muted); margin-top:4px; display:flex; align-items:center; gap:8px;">
+        <div style="font-size:12px; color:var(--muted); margin-top:2px; display:flex; align-items:center; gap:8px;">
             <span style="color:#10b981; font-weight:700;">● Canlı Sistem Takibi</span>
             <span>|</span>
             <span>Tarih: {{ now()->format('d.m.Y H:i') }}</span>
@@ -337,301 +323,305 @@
     </div>
 </div>
 
-{{-- 3. İKİ KOLONLU ANA DASHBOARD --}}
-<div class="dashboard-grid">
-    {{-- SOL KOLON: GRAFİKLER & ÖZET DURUM --}}
-    <div class="charts-column">
-        {{-- CARD 1: ACTIVE LOANS STATUS --}}
-        <div class="card">
-            <div class="card-title">
-                <span>ACTIVE LOANS STATUS</span>
-                <span style="font-size:11px; color:var(--muted); font-weight:600;">Aktif Zimmetler</span>
-            </div>
-
-            <div class="donut-card-body">
-                {{-- SVG Donut Chart 1 --}}
-                <div class="donut-svg-wrapper">
-                    <svg class="donut-svg" viewBox="0 0 36 36">
-                        @php
-                            $totalLoans = max(1, $activeLoansChart['total']);
-                            $cats = $activeLoansChart['categories'];
-                            $colors = ['#f59e0b', '#ea580c', '#eab308', '#6366f1', '#10b981'];
-                            $offset = 0;
-                            $index = 0;
-                        @endphp
-
-                        {{-- Arka plan halkası --}}
-                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
-
-                        @if($activeLoansChart['total'] == 0)
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
-                        @else
-                            @foreach($cats as $catName => $catCount)
-                                @php
-                                    $pct = ($catCount / $totalLoans) * 100;
-                                    $color = $colors[$index % count($colors)];
-                                    $dash = "{$pct} " . (100 - $pct);
-                                    $strokeOffset = -$offset;
-                                    $offset += $pct;
-                                    $index++;
-                                @endphp
-                                <circle cx="18" cy="18" r="14" fill="transparent"
-                                        stroke="{{ $color }}" stroke-width="4.5"
-                                        stroke-dasharray="{{ $dash }}"
-                                        stroke-dashoffset="{{ $strokeOffset }}"></circle>
-                            @endforeach
-                        @endif
-                    </svg>
-                    <div class="donut-center-content">
-                        <span class="donut-center-label">Total</span>
-                        <span class="donut-center-value">{{ $activeLoansChart['total'] }}</span>
-                    </div>
-                </div>
-
-                {{-- Legend --}}
-                <div class="donut-legend-list">
-                    @php $i = 0; @endphp
-                    @foreach($cats as $catName => $catCount)
-                        @php $color = $colors[$i % count($colors)]; $i++; @endphp
-                        <div class="donut-legend-item">
-                            <div class="donut-legend-left">
-                                <span class="donut-legend-indicator" style="background:{{ $color }};"></span>
-                                <span style="white-space:nowrap; max-width:130px; overflow:hidden; text-overflow:ellipsis;" title="{{ $catName }}">
-                                    {{ $catName }}
-                                </span>
-                            </div>
-                            <span class="donut-legend-value">{{ $catCount }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+{{-- 3. ÜST GRAFİKLER SIRASI (2 KART YAN YANA - TAM GENİŞLİK) --}}
+<div class="charts-row">
+    {{-- CARD 1: ACTIVE LOANS STATUS --}}
+    <div class="card">
+        <div class="card-title">
+            <span>ACTIVE LOANS STATUS</span>
+            <span style="font-size:11px; color:var(--muted); font-weight:600;">Aktif Zimmetler</span>
         </div>
 
-        {{-- CARD 2: TOOL AVAILABILITY --}}
-        <div class="card">
-            <div class="card-title">
-                <span>TOOL AVAILABILITY</span>
-                <span style="font-size:11px; color:var(--muted); font-weight:600;">Müsaitlik Oranı</span>
+        <div class="donut-card-body">
+            <div class="donut-svg-wrapper">
+                <svg class="donut-svg" viewBox="0 0 36 36">
+                    @php
+                        $totalLoans = max(1, $activeLoansChart['total']);
+                        $cats = $activeLoansChart['categories'];
+                        $colors = ['#f59e0b', '#ea580c', '#eab308', '#6366f1', '#10b981'];
+                        $offset = 0;
+                        $index = 0;
+                    @endphp
+
+                    <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
+
+                    @if($activeLoansChart['total'] == 0)
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
+                    @else
+                        @foreach($cats as $catName => $catCount)
+                            @php
+                                $pct = ($catCount / $totalLoans) * 100;
+                                $color = $colors[$index % count($colors)];
+                                $dash = "{$pct} " . (100 - $pct);
+                                $strokeOffset = -$offset;
+                                $offset += $pct;
+                                $index++;
+                            @endphp
+                            <circle cx="18" cy="18" r="14" fill="transparent"
+                                    stroke="{{ $color }}" stroke-width="4.5"
+                                    stroke-dasharray="{{ $dash }}"
+                                    stroke-dashoffset="{{ $strokeOffset }}"></circle>
+                        @endforeach
+                    @endif
+                </svg>
+                <div class="donut-center-content">
+                    <span class="donut-center-label">Total</span>
+                    <span class="donut-center-value">{{ $activeLoansChart['total'] }}</span>
+                </div>
             </div>
 
-            <div class="donut-card-body">
-                {{-- SVG Donut Chart 2 --}}
-                @php
-                    $avPct = $availabilityStats['available_pct'];
-                    $usePct = $availabilityStats['in_use_pct'];
-                    $maintPct = $availabilityStats['maintenance_pct'];
-                    $off2 = 0;
-                @endphp
-                <div class="donut-svg-wrapper">
-                    <svg class="donut-svg" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
-                        @if($availabilityStats['total'] == 0)
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
-                        @else
-                            {{-- Available (Amber/Gold or Green) --}}
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#f59e0b" stroke-width="4.5"
-                                    stroke-dasharray="{{ $avPct }} {{ 100 - $avPct }}"
-                                    stroke-dashoffset="0"></circle>
-                            {{-- In Use (Darker Orange) --}}
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#ea580c" stroke-width="4.5"
-                                    stroke-dasharray="{{ $usePct }} {{ 100 - $usePct }}"
-                                    stroke-dashoffset="-{{ $avPct }}"></circle>
-                            {{-- Maintenance (Amber Light) --}}
-                            <circle cx="18" cy="18" r="14" fill="transparent" stroke="#fbbf24" stroke-width="4.5"
-                                    stroke-dasharray="{{ $maintPct }} {{ 100 - $maintPct }}"
-                                    stroke-dashoffset="-{{ $avPct + $usePct }}"></circle>
-                        @endif
-                    </svg>
-                    <div class="donut-center-content">
-                        <span class="donut-center-label">Available</span>
-                        <span class="donut-center-value" style="color:#f59e0b;">{{ $avPct }}%</span>
-                    </div>
-                </div>
-
-                {{-- Legend --}}
-                <div class="donut-legend-list">
+            <div class="donut-legend-list">
+                @php $i = 0; @endphp
+                @foreach($cats as $catName => $catCount)
+                    @php $color = $colors[$i % count($colors)]; $i++; @endphp
                     <div class="donut-legend-item">
                         <div class="donut-legend-left">
-                            <span class="donut-legend-indicator" style="background:#f59e0b;"></span>
-                            <span>Available</span>
+                            <span class="donut-legend-indicator" style="background:{{ $color }};"></span>
+                            <span style="white-space:nowrap; max-width:140px; overflow:hidden; text-overflow:ellipsis;" title="{{ $catName }}">
+                                {{ $catName }}
+                            </span>
                         </div>
-                        <span class="donut-legend-value">{{ $avPct }}% ({{ $availabilityStats['available'] }})</span>
+                        <span class="donut-legend-value">{{ $catCount }}</span>
                     </div>
-                    <div class="donut-legend-item">
-                        <div class="donut-legend-left">
-                            <span class="donut-legend-indicator" style="background:#ea580c;"></span>
-                            <span>In Use</span>
-                        </div>
-                        <span class="donut-legend-value">{{ $usePct }}% ({{ $availabilityStats['in_use'] }})</span>
-                    </div>
-                    <div class="donut-legend-item">
-                        <div class="donut-legend-left">
-                            <span class="donut-legend-indicator" style="background:#fbbf24;"></span>
-                            <span>Maintenance</span>
-                        </div>
-                        <span class="donut-legend-value">{{ $maintPct }}% ({{ $availabilityStats['maintenance'] }})</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
 
-    {{-- SAĞ KOLON: TOOL INVENTORY & STATUS TABLOSU (Mockup 1:1) --}}
-    <div class="card" style="padding: 16px 20px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-            <div>
-                <h2 style="font-size:15px; font-weight:800; letter-spacing:0.8px; color:#fff; text-transform:uppercase;">
-                    TOOL INVENTORY & STATUS
-                </h2>
-                <p style="font-size:11px; color:var(--muted); margin-top:2px;">
-                    Canlı stok, zimmet ve arıza durumu takibi (Toplam {{ count($inventoryTools) }} kayıt)
-                </p>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:8px;">
-                <a href="{{ route('export.tools.excel', ['toolroom_id' => $roomId]) }}"
-                   class="btn btn-accent btn-sm" style="font-weight:800; gap:6px;">
-                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1.8 14.8l-1.4 1.4-2.4-2.4-2.4 2.4-1.4-1.4 2.4-2.4-2.4-2.4 1.4-1.4 2.4 2.4 2.4-2.4 1.4 1.4-2.4 2.4 2.4 2.4zM13 9V3.5L18.5 9H13z"/>
-                    </svg>
-                    EXCEL EXPORT
-                </a>
-            </div>
+    {{-- CARD 2: TOOL AVAILABILITY --}}
+    <div class="card">
+        <div class="card-title">
+            <span>TOOL AVAILABILITY</span>
+            <span style="font-size:11px; color:var(--muted); font-weight:600;">Müsaitlik Oranı</span>
         </div>
 
-        {{-- Canlı Tablo --}}
-        <div class="table-container">
-            <table class="custom-admin-table" id="inventory-table">
-                <thead>
-                    <tr>
-                        <th>ID ↑</th>
-                        <th>Tool Name</th>
-                        <th>Category</th>
-                        <th>Serial No.</th>
-                        <th>Current Location/User</th>
-                        <th>Return Date</th>
-                        <th style="text-align:right;">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($inventoryTools as $tool)
-                        @php
-                            $loan = $tool->activeLoan;
-                            $isOverdue = $loan && ($loan->isOverdue() || $loan->status === 'overdue');
-                            $userOrLocation = '-';
-                            $returnDate = '-';
+        <div class="donut-card-body">
+            @php
+                $avPct = $availabilityStats['available_pct'];
+                $usePct = $availabilityStats['in_use_pct'];
+                $maintPct = $availabilityStats['maintenance_pct'];
+            @endphp
+            <div class="donut-svg-wrapper">
+                <svg class="donut-svg" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" fill="transparent" stroke="#222c3d" stroke-width="4"></circle>
+                    @if($availabilityStats['total'] == 0)
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#334155" stroke-width="4" stroke-dasharray="100 0"></circle>
+                    @else
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#f59e0b" stroke-width="4.5"
+                                stroke-dasharray="{{ $avPct }} {{ 100 - $avPct }}"
+                                stroke-dashoffset="0"></circle>
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#ea580c" stroke-width="4.5"
+                                stroke-dasharray="{{ $usePct }} {{ 100 - $usePct }}"
+                                stroke-dashoffset="-{{ $avPct }}"></circle>
+                        <circle cx="18" cy="18" r="14" fill="transparent" stroke="#fbbf24" stroke-width="4.5"
+                                stroke-dasharray="{{ $maintPct }} {{ 100 - $maintPct }}"
+                                stroke-dashoffset="-{{ $avPct + $usePct }}"></circle>
+                    @endif
+                </svg>
+                <div class="donut-center-content">
+                    <span class="donut-center-label">Available</span>
+                    <span class="donut-center-value" style="color:#f59e0b;">{{ $avPct }}%</span>
+                </div>
+            </div>
 
-                            if ($tool->status === 'loaned' && $loan) {
-                                $userOrLocation = $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Zimmette');
-                                $returnDate = $loan->planned_return_at ? $loan->planned_return_at->format('d/m H:i') : 'Bugün';
-                            } elseif ($tool->slot) {
-                                $bName = $tool->slot->shelf?->block?->name ?? '';
-                                $sNum = $tool->slot->shelf?->shelf_number ?? '';
-                                $gNum = $tool->slot->slot_number ?? '';
-                                $userOrLocation = trim("{$bName} R{$sNum}-G{$gNum}");
-                            } else {
-                                $userOrLocation = 'Depo / Raf';
-                            }
-
-                            // ID biçimlendirmesi (Mockuptaki gibi TVH001, DP042 veya Barkod)
-                            $toolCode = $tool->barcode ?? ('TKM-' . str_pad($tool->id, 4, '0', STR_PAD_LEFT));
-                            if (strlen($toolCode) > 10) {
-                                $toolCode = substr($toolCode, -8);
-                            }
-                        @endphp
-                        <tr class="inventory-row-item"
-                            data-search-text="{{ strtolower($toolCode . ' ' . $tool->name . ' ' . ($tool->toolGroup?->name ?? $tool->category ?? '') . ' ' . ($tool->serial_no ?? '') . ' ' . $userOrLocation) }}">
-                            
-                            {{-- ID --}}
-                            <td>
-                                <span class="tool-id-tag">{{ strtoupper($toolCode) }}</span>
-                            </td>
-
-                            {{-- Tool Name --}}
-                            <td>
-                                <div class="tool-name-cell">
-                                    @if($tool->image)
-                                        <img src="{{ Storage::url($tool->image) }}" alt="{{ $tool->name }}"
-                                             class="tool-thumb-img"
-                                             onclick="openImageLightbox('{{ Storage::url($tool->image) }}', '{{ addslashes($tool->name) }}')"
-                                             title="Resmi büyütmek için tıklayın">
-                                    @else
-                                        <div class="tool-thumb-placeholder">🔧</div>
-                                    @endif
-                                    <div>
-                                        <div style="font-weight:700; color:#fff; font-size:13px;">{{ $tool->name }}</div>
-                                        @if($tool->description)
-                                            <div style="font-size:11px; color:var(--muted); max-width:200px; overflow:hidden; text-overflow:ellipsis;">
-                                                {{ Str::limit($tool->description, 28) }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-
-                            {{-- Category --}}
-                            <td style="color:#cbd5e1;">
-                                {{ $tool->toolGroup?->name ?? ($tool->category ? \App\Models\Tool::CATEGORIES[$tool->category] ?? $tool->category : 'Heavy Duty') }}
-                            </td>
-
-                            {{-- Serial No --}}
-                            <td>
-                                <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#94a3b8;">
-                                    {{ $tool->serial_no ?? '—' }}
-                                </span>
-                            </td>
-
-                            {{-- Current Location / User --}}
-                            <td>
-                                @if($tool->status === 'loaned')
-                                    <span style="color:#60a5fa; font-weight:700; display:inline-flex; align-items:center; gap:4px;">
-                                        👤 {{ $userOrLocation }}
-                                    </span>
-                                @else
-                                    <span style="color:#94a3b8;">📍 {{ $userOrLocation }}</span>
-                                @endif
-                            </td>
-
-                            {{-- Return Date --}}
-                            <td>
-                                @if($tool->status === 'loaned')
-                                    <span style="font-size:12px; font-weight:600; color:{{ $isOverdue ? '#f87171' : '#cbd5e1' }};">
-                                        {{ $returnDate }}
-                                    </span>
-                                @else
-                                    <span style="color:#64748b;">-</span>
-                                @endif
-                            </td>
-
-                            {{-- Status Badges matching Mockup --}}
-                            <td style="text-align:right;">
-                                @if($tool->status === 'available')
-                                    <span class="status-badge status-available">Available</span>
-                                @elseif($isOverdue)
-                                    <span class="status-badge status-overdue">Overdue</span>
-                                @elseif($tool->status === 'loaned')
-                                    <span class="status-badge status-in-use">In Use</span>
-                                @elseif($tool->status === 'maintenance')
-                                    <span class="status-badge status-maintenance">In Maintenance</span>
-                                @else
-                                    <span class="status-badge status-maintenance">Scrapped</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" style="text-align:center; padding:30px; color:var(--muted);">
-                                Bu takımhanede henüz kayıtlı parça bulunmuyor.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="donut-legend-list">
+                <div class="donut-legend-item">
+                    <div class="donut-legend-left">
+                        <span class="donut-legend-indicator" style="background:#f59e0b;"></span>
+                        <span>Available</span>
+                    </div>
+                    <span class="donut-legend-value">{{ $avPct }}% ({{ $availabilityStats['available'] }})</span>
+                </div>
+                <div class="donut-legend-item">
+                    <div class="donut-legend-left">
+                        <span class="donut-legend-indicator" style="background:#ea580c;"></span>
+                        <span>In Use</span>
+                    </div>
+                    <span class="donut-legend-value">{{ $usePct }}% ({{ $availabilityStats['in_use'] }})</span>
+                </div>
+                <div class="donut-legend-item">
+                    <div class="donut-legend-left">
+                        <span class="donut-legend-indicator" style="background:#fbbf24;"></span>
+                        <span>Maintenance</span>
+                    </div>
+                    <span class="donut-legend-value">{{ $maintPct }}% ({{ $availabilityStats['maintenance'] }})</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-{{-- 4. GÜNLÜK HAREKETLER & PERSONEL ZİMMET GEÇMİŞİ (OPERASYONEL MODÜL) --}}
+{{-- 4. ALT ENVANTER TABLOSU (TAM GENİŞLİK - EKRANA RAHATÇA SIĞAR) --}}
+<div class="card" style="padding: 18px 20px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+        <div>
+            <h2 style="font-size:15px; font-weight:800; letter-spacing:0.8px; color:#fff; text-transform:uppercase;">
+                TOOL INVENTORY & STATUS
+            </h2>
+            <p style="font-size:11px; color:var(--muted); margin-top:2px;">
+                Canlı stok, zimmetli personel ve raf/göz konumları
+            </p>
+        </div>
+
+        <form method="GET" action="{{ route('admin-portal.index') }}" style="display:flex; align-items:center; gap:8px;">
+            <input type="hidden" name="toolroom_id" value="{{ $roomId }}">
+            <input type="hidden" name="date" value="{{ $selectedDate }}">
+            <input type="text" name="search" value="{{ request('search') }}"
+                   placeholder="🔍 Takım adı, seri no veya barkod..."
+                   class="form-input" style="padding:7px 12px; font-size:12px; width:240px; border-radius:8px;">
+            <button type="submit" class="btn btn-ghost btn-sm" style="font-weight:700;">Ara</button>
+            @if(request('search'))
+                <a href="{{ route('admin-portal.index', ['toolroom_id' => $roomId, 'date' => $selectedDate]) }}" class="btn btn-ghost btn-sm" style="color:#f87171;">✕</a>
+            @endif
+        </form>
+    </div>
+
+    {{-- Canlı Tablo --}}
+    <div class="table-container">
+        <table class="custom-admin-table" id="inventory-table">
+            <thead>
+                <tr>
+                    <th style="width:100px;">ID ↑</th>
+                    <th>Tool Name</th>
+                    <th>Category</th>
+                    <th>Serial No.</th>
+                    <th>Current Location / User</th>
+                    <th>Return Date</th>
+                    <th style="text-align:right;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($inventoryTools as $tool)
+                    @php
+                        $loan = $tool->activeLoan;
+                        $isOverdue = $loan && ($loan->isOverdue() || $loan->status === 'overdue');
+                        $userOrLocation = '-';
+                        $returnDate = '-';
+
+                        if ($tool->status === 'loaned' && $loan) {
+                            $userOrLocation = $loan->personnel?->name ?? ($loan->loanedByUser?->name ?? 'Zimmette');
+                            $returnDate = $loan->planned_return_at ? $loan->planned_return_at->format('d.m.Y H:i') : 'Bugün';
+                        } elseif ($tool->slot) {
+                            $bName = $tool->slot->shelf?->block?->name ?? '';
+                            $sName = $tool->slot->shelf?->name ?? '';
+                            $gName = $tool->slot->name ?? '';
+
+                            $locParts = [];
+                            if (!empty($bName)) $locParts[] = $bName;
+                            if (!empty($sName)) $locParts[] = is_numeric($sName) ? "Raf {$sName}" : $sName;
+                            if (!empty($gName)) $locParts[] = is_numeric($gName) ? "Göz {$gName}" : $gName;
+
+                            $userOrLocation = !empty($locParts) ? implode(' / ', $locParts) : ($tool->slot->full_label ?? 'Depo / Raf');
+                        } else {
+                            $userOrLocation = 'Depo / Raf';
+                        }
+
+                        $toolCode = 'TKM-' . str_pad($tool->id, 4, '0', STR_PAD_LEFT);
+                    @endphp
+                    <tr class="inventory-row-item">
+                        {{-- ID --}}
+                        <td>
+                            <span style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#cbd5e1; font-size:12px;">
+                                {{ $toolCode }}
+                            </span>
+                        </td>
+
+                        {{-- Tool Name --}}
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                @if($tool->image)
+                                    <img src="{{ Storage::url($tool->image) }}" alt="{{ $tool->name }}"
+                                         class="tool-thumb-img"
+                                         onclick="openImageLightbox('{{ Storage::url($tool->image) }}', '{{ addslashes($tool->name) }}')"
+                                         title="Resmi büyütmek için tıklayın">
+                                @else
+                                    <div class="tool-thumb-placeholder">🔧</div>
+                                @endif
+                                <div>
+                                    <div style="font-weight:700; color:#fff; font-size:13px;">{{ $tool->name }}</div>
+                                    @if($tool->description)
+                                        <div style="font-size:11px; color:var(--muted); max-width:260px; overflow:hidden; text-overflow:ellipsis;">
+                                            {{ Str::limit($tool->description, 35) }}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </td>
+
+                        {{-- Category --}}
+                        <td style="color:#cbd5e1; font-size:12px;">
+                            {{ $tool->toolGroup?->name ?? ($tool->category ? \App\Models\Tool::CATEGORIES[$tool->category] ?? $tool->category : 'Genel') }}
+                        </td>
+
+                        {{-- Serial No --}}
+                        <td>
+                            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#94a3b8;">
+                                {{ $tool->serial_no ?? ($tool->barcode ?? '—') }}
+                            </span>
+                        </td>
+
+                        {{-- Current Location / User --}}
+                        <td>
+                            @if($tool->status === 'loaned')
+                                <span style="color:#60a5fa; font-weight:700; display:inline-flex; align-items:center; gap:5px;">
+                                    👤 {{ $userOrLocation }}
+                                </span>
+                            @else
+                                <span style="color:#34d399; font-weight:600; display:inline-flex; align-items:center; gap:5px;">
+                                    📍 {{ $userOrLocation }}
+                                </span>
+                            @endif
+                        </td>
+
+                        {{-- Return Date --}}
+                        <td>
+                            @if($tool->status === 'loaned')
+                                <span style="font-size:12px; font-weight:600; color:{{ $isOverdue ? '#f87171' : '#cbd5e1' }};">
+                                    {{ $returnDate }}
+                                </span>
+                            @else
+                                <span style="color:#64748b;">-</span>
+                            @endif
+                        </td>
+
+                        {{-- Status Badges --}}
+                        <td style="text-align:right;">
+                            @if($tool->status === 'available')
+                                <span class="status-badge status-available">Available</span>
+                            @elseif($isOverdue)
+                                <span class="status-badge status-overdue">Overdue</span>
+                            @elseif($tool->status === 'loaned')
+                                <span class="status-badge status-in-use">In Use</span>
+                            @elseif($tool->status === 'maintenance')
+                                <span class="status-badge status-maintenance">In Maintenance</span>
+                            @else
+                                <span class="status-badge status-maintenance">Scrapped</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" style="text-align:center; padding:30px; color:var(--muted);">
+                            Bu takımhanede kayıtlı parça bulunmuyor.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    {{-- Sayfalama Barı --}}
+    <div class="custom-pagination-bar">
+        <div style="font-size:12px; color:var(--muted);">
+            Toplam <b>{{ $inventoryTools->total() }}</b> aletten <b>{{ $inventoryTools->firstItem() ?? 0 }}-{{ $inventoryTools->lastItem() ?? 0 }}</b> arası gösteriliyor.
+        </div>
+        <div>
+            {{ $inventoryTools->links() }}
+        </div>
+    </div>
+</div>
+
+{{-- 5. GÜNLÜK HAREKETLER & PERSONEL ZİMMET GEÇMİŞİ (OPERASYONEL MODÜL) --}}
 <div class="operations-drawer">
     <div class="operations-drawer-header" onclick="toggleOperationsDrawer()">
         <div style="display:flex; align-items:center; gap:10px;">
@@ -647,7 +637,6 @@
         </div>
 
         <div style="display:flex; align-items:center; gap:12px;">
-            {{-- Tarih Değiştirici --}}
             <input type="date" value="{{ $selectedDate }}" onchange="changeArchiveDate(this.value)" onclick="event.stopPropagation()"
                    style="background:var(--surface2); border:1px solid var(--border); color:#fff; padding:5px 10px; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer;">
 
@@ -662,7 +651,6 @@
     </div>
 
     <div id="operations-drawer-body" style="padding:18px;">
-        {{-- İstatistik Küçük Kutular --}}
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; margin-bottom:18px;">
             <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px 14px; border-left:3px solid #6366f1;">
                 <div style="font-size:11px; font-weight:700; color:var(--muted);">GÜNÜN HAREKETİ</div>
@@ -682,12 +670,9 @@
             </div>
         </div>
 
-        {{-- Gruplanmış Personel Kartları --}}
         <div id="grouped-loans-container">
             @forelse($groupedLoans as $group)
-                <div class="person-loan-card" style="background:#141b25; border:1px solid {{ $group['has_overdue'] ? 'rgba(239,68,68,0.5)' : 'var(--border)' }}; border-radius:12px; padding:14px; margin-bottom:12px;"
-                     data-search-text="{{ strtolower($group['personnel_name'] . ' ' . $group['personnel_dept'] . ' ' . $group['badge_number']) }}">
-                    
+                <div class="person-loan-card" style="background:#141b25; border:1px solid {{ $group['has_overdue'] ? 'rgba(239,68,68,0.5)' : 'var(--border)' }}; border-radius:12px; padding:14px; margin-bottom:12px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px;">
                             <div style="width:32px; height:32px; border-radius:8px; background:rgba(245,158,11,0.2); color:#f59e0b; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">
@@ -714,7 +699,6 @@
                         </div>
                     </div>
 
-                    {{-- Personelin Takımları --}}
                     <div style="overflow-x:auto;">
                         <table style="width:100%; font-size:12px; border-collapse:collapse;">
                             <tbody>
@@ -763,7 +747,7 @@
     </div>
 </div>
 
-{{-- 5. HIZLI PARÇA ZİMMETLEME MODALI --}}
+{{-- 6. HIZLI PARÇA ZİMMETLEME MODALI --}}
 <div id="assign-modal" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:9999; display:flex; align-items:center; justify-content:center; padding:16px;">
     <div style="background:var(--surface); border:1px solid var(--border); border-radius:18px; width:100%; max-width:480px; padding:24px; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:14px;">
@@ -775,7 +759,6 @@
         </div>
 
         <form id="assign-tool-form" onsubmit="submitAssignForm(event)">
-            {{-- Personel Seçimi --}}
             <div class="form-group">
                 <label class="form-label" for="assign-personnel-id">👤 Personel Seçin</label>
                 <select class="form-input" id="assign-personnel-id" name="personnel_id" required>
@@ -786,7 +769,6 @@
                 </select>
             </div>
 
-            {{-- Parça Seçimi --}}
             <div class="form-group">
                 <label class="form-label" for="assign-tool-id">🔧 Parça / Takım Seçin (Müsait Olanlar)</label>
                 <select class="form-input" id="assign-tool-id" name="tool_id" required>
@@ -794,19 +776,17 @@
                     @foreach($availableTools as $t)
                         <option value="{{ $t->id }}">
                             {{ $t->name }} [SN: {{ $t->serial_no ?? 'Yok' }}]
-                            @if($t->slot) - ({{ $t->slot->shelf?->block?->name ?? '' }} R{{ $t->slot->shelf?->shelf_number ?? '' }}/G{{ $t->slot->slot_number ?? '' }})@endif
+                            @if($t->slot) - ({{ $t->slot->shelf?->block?->name ?? '' }} / {{ $t->slot->shelf?->name ?? '' }} / {{ $t->slot->name ?? '' }})@endif
                         </option>
                     @endforeach
                 </select>
             </div>
 
-            {{-- Planlanan İade Süresi --}}
             <div class="form-group">
                 <label class="form-label" for="assign-days">⏳ İade Süresi (Gün)</label>
                 <input class="form-input" type="number" id="assign-days" name="days" value="7" min="1" max="90" required>
             </div>
 
-            {{-- Notlar --}}
             <div class="form-group">
                 <label class="form-label" for="assign-notes">📝 Zimmet Notu (İsteğe bağlı)</label>
                 <textarea class="form-input" id="assign-notes" name="notes" rows="2" placeholder="İş emri veya araç plakası..." style="resize:none;"></textarea>
@@ -827,7 +807,6 @@
 
 @push('scripts')
 <script>
-// Tarih Değiştirme
 function changeArchiveDate(dateStr) {
     if (!dateStr) return;
     var url = new URL(window.location.href);
@@ -835,7 +814,6 @@ function changeArchiveDate(dateStr) {
     window.location.href = url.toString();
 }
 
-// Alt Operasyon Çekmecesi Aç/Kapa
 function toggleOperationsDrawer() {
     var body = document.getElementById('operations-drawer-body');
     var arrow = document.getElementById('drawer-arrow');
@@ -849,7 +827,6 @@ function toggleOperationsDrawer() {
     }
 }
 
-// Modal İşlemleri
 function openAssignModal(personnelId, personnelName) {
     var modal = document.getElementById('assign-modal');
     if (!modal) return;
@@ -865,7 +842,6 @@ function closeAssignModal() {
     if (modal) modal.classList.add('hidden');
 }
 
-// Zimmet Formu Gönderimi
 function submitAssignForm(e) {
     e.preventDefault();
     var btn = document.getElementById('assign-submit-btn');
@@ -898,7 +874,6 @@ function submitAssignForm(e) {
     });
 }
 
-// Tekil İade Alma
 function returnSingleLoan(loanId, toolName, personName) {
     if (!confirm(toolName + ' parçasını (' + personName + ') iade almak istiyor musunuz?')) return;
 
