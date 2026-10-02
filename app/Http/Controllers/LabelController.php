@@ -189,6 +189,10 @@ class LabelController extends Controller
     {
         $query = Tool::with(['slot.shelf.block', 'activeLoan.personnel'])->orderBy('name');
 
+        if ($request->filled('toolroom_id')) {
+            $query->where('toolroom_id', $request->input('toolroom_id'));
+        }
+
         if ($request->has('ids') && !empty($request->input('ids'))) {
             $ids = explode(',', $request->input('ids'));
             $query->whereIn('id', $ids);
@@ -215,6 +219,10 @@ class LabelController extends Controller
     public function exportToolsPdf(Request $request)
     {
         $query = Tool::with(['slot.shelf.block', 'activeLoan.personnel'])->orderBy('name');
+
+        if ($request->filled('toolroom_id')) {
+            $query->where('toolroom_id', $request->input('toolroom_id'));
+        }
 
         if ($request->has('ids') && !empty($request->input('ids'))) {
             $ids = explode(',', $request->input('ids'));
